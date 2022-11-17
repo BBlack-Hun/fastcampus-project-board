@@ -1,0 +1,68 @@
+debug: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+server:
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+    context-path: /
+  port: 9998
+
+spring:
+  thymeleaf:
+    cache: false
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://61.74.241.175:33306/board?allowPublicKeyRetrieval=true&useSSL=false
+    username: chamci
+    password: 1q2w3e4r!
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: create
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      use-new-id-generator-mappings: false
+    show-sql: true
+    generate-ddl: false
+    properties:
+      hibernate.format_sql: true
+      hibernate.default_batch_fetch_size: 100
+      dialect: org.hibernate.dialect.MYSQL5InnoDBDialect
+    defer-datasource-initialization: true
+  h2:
+    console:
+      enabled: false
+  sql:
+    init:
+      mode: always
+#  data:
+#    rest:
+#      base-path: /api
+#      detection-strategy: annotated
+
+logging:
+  level:
+    root: info
+    org:
+      springframework:
+        web:
+          servlet: debug
+        security: debug
+      hibernate:
+        type:
+          descriptor:
+            sql:
+              BasicBinder: trace
