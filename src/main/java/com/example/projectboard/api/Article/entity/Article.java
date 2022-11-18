@@ -2,6 +2,7 @@ package com.example.projectboard.api.Article.entity;
 
 
 import com.example.projectboard.api.AritlcleCommend.entity.ArticleComment;
+import com.example.projectboard.api.Common.entity.AuditingFields;
 import lombok.*;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -27,9 +28,8 @@ import java.util.Set;
                 @Index(columnList = "createdBy"),
         }
 )
-@EntityListeners(AuditingEntityListener.class)
 @Entity
-public class Article {
+public class Article extends AuditingFields {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,22 +44,10 @@ public class Article {
     @Setter
     private String hashTag; // 해시태그
 
+    @ToString.Exclude
     @OrderBy("id")
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
     private final Set<ArticleComment> articleComments = new LinkedHashSet<>();
-
-    @CreatedDate
-    @Column(nullable = false)
-    private LocalDateTime createdAt; // 생성일시
-    @CreatedBy
-    @Column(nullable = false, length = 100)
-    private String createdBy; // 생성자
-    @LastModifiedDate
-    @Column(nullable = false)
-    private LocalDateTime modifiedAt; // 수정일시
-    @LastModifiedBy
-    @Column(nullable = false, length = 100)
-    private String modifiedBy; // 수정자
 
     private  Article(String title, String content, String hashTag) {
         this.title = title;

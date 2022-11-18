@@ -1,6 +1,7 @@
 package com.example.projectboard.api.AritlcleCommend.entity;
 
 import com.example.projectboard.api.Article.entity.Article;
+import com.example.projectboard.api.Common.entity.AuditingFields;
 import lombok.*;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -23,9 +24,8 @@ import java.util.Objects;
                 @Index(columnList = "createdBy"),
         }
 )
-@EntityListeners(AuditingEntityListener.class)
 @Entity
-public class ArticleComment {
+public class ArticleComment extends AuditingFields {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,19 +37,6 @@ public class ArticleComment {
     @Setter
     @Column(nullable = false, length = 500)
     private String content; // 본문
-
-    @CreatedDate
-    @Column(nullable = false)
-    private LocalDateTime createdAt; // 생성일시
-    @CreatedBy
-    @Column(nullable = false, length = 100)
-    private String createdBy; // 생성자
-    @LastModifiedDate
-    @Column(nullable = false)
-    private LocalDateTime modifiedAt; // 수정일시
-    @LastModifiedBy
-    @Column(nullable = false, length = 100)
-    private String modifiedBy; // 수정자
 
     private ArticleComment(Article article, String content) {
         this.article = article;

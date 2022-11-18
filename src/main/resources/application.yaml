@@ -16,12 +16,12 @@ server:
   port: 9998
 
 spring:
-  thymeleaf:
-    cache: false
+#  thymeleaf:
+#    cache: false
 
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
+#  mvc:
+#    pathmatch:
+#      matching-strategy: ant_path_matcher
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -29,6 +29,7 @@ spring:
     username: chamci
     password: 1q2w3e4r!
   jpa:
+    defer-datasource-initialization: true
     open-in-view: false
     hibernate:
       ddl-auto: create
@@ -41,10 +42,6 @@ spring:
       hibernate.format_sql: true
       hibernate.default_batch_fetch_size: 100
       dialect: org.hibernate.dialect.MYSQL5InnoDBDialect
-    defer-datasource-initialization: true
-  h2:
-    console:
-      enabled: false
   sql:
     init:
       mode: always
@@ -55,12 +52,15 @@ spring:
 
 logging:
   level:
-    root: info
+#    root: info
+    com:
+      example:
+        projectboard: debug
     org:
       springframework:
         web:
           servlet: debug
-        security: debug
+#        security: debug
       hibernate:
         type:
           descriptor:
