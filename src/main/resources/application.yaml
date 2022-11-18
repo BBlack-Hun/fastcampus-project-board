@@ -45,10 +45,10 @@ spring:
   sql:
     init:
       mode: always
-#  data:
-#    rest:
-#      base-path: /api
-#      detection-strategy: annotated
+  data:
+    rest:
+      base-path: /api/v1
+      detection-strategy: annotated
 
 logging:
   level:
