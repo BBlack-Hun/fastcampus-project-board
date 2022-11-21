@@ -16,7 +16,8 @@ server:
   port: 9998
 
 spring:
-#  thymeleaf:
+  thymeleaf3:
+    decoupled-logic: true
 #    cache: false
 
 #  mvc:
