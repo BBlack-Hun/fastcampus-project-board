@@ -2,6 +2,8 @@ package com.example.projectboard.api.Article.repository;
 
 import com.example.projectboard.api.AritlcleCommend.repository.ArticleCommentRepository;
 import com.example.projectboard.api.Article.entity.Article;
+import com.example.projectboard.api.User.entity.UserAccount;
+import com.example.projectboard.api.User.repository.UserAccountRepository;
 import com.example.projectboard.util.config.JpaConfig;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,12 +21,15 @@ import static org.assertj.core.api.Assertions.*;
 class JpaRepositoryTest {
     private final ArticleRepository articleRepository;
     private final ArticleCommentRepository articleCommentRepository;
+    private final UserAccountRepository userAccountRepository;
 
     public JpaRepositoryTest(
             @Autowired ArticleRepository articleRepository,
-            @Autowired ArticleCommentRepository articleCommentRepository) {
+            @Autowired ArticleCommentRepository articleCommentRepository,
+            @Autowired UserAccountRepository userAccountRepository) {
         this.articleRepository = articleRepository;
         this.articleCommentRepository = articleCommentRepository;
+        this.userAccountRepository = userAccountRepository;
     }
 
     @DisplayName("select 테스트")
@@ -46,9 +51,11 @@ class JpaRepositoryTest {
     void givenTestData_whenInserting_thenWorksFine() {
         // Given
         long previousCount = articleRepository.count();
+        UserAccount userAccount = userAccountRepository.save(UserAccount.of("BBKIM", "pw", null, null, null));
+        Article article = Article.of(userAccount, "new Article", "new Content", "#Spring");
 
         // When
-        Article saveArticle = articleRepository.save(Article.of("new article", "new Content", "#spring"));
+        articleRepository.save(article);
 
         // Then
         assertThat(articleRepository.count())
