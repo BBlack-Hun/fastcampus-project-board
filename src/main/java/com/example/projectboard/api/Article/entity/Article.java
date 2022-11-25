@@ -3,6 +3,7 @@ package com.example.projectboard.api.Article.entity;
 
 import com.example.projectboard.api.AritlcleCommend.entity.ArticleComment;
 import com.example.projectboard.api.Common.entity.AuditingFields;
+import com.example.projectboard.api.User.entity.UserAccount;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,7 +12,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Getter
-@ToString
+@ToString(callSuper = true)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(
         name = "article",
@@ -30,6 +31,10 @@ public class Article extends AuditingFields {
     private Long id;
 
     @Setter
+    @ManyToOne(optional = false)
+    private UserAccount userAccount; // 유저 정보 (ID)
+
+    @Setter
     @Column(nullable = false)
     private String title; // 제목
     @Setter
@@ -39,18 +44,19 @@ public class Article extends AuditingFields {
     private String hashTag; // 해시태그
 
     @ToString.Exclude
-    @OrderBy("id")
+    @OrderBy("createdAt DESC")
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
     private final Set<ArticleComment> articleComments = new LinkedHashSet<>();
 
-    private  Article(String title, String content, String hashTag) {
+    private  Article(UserAccount userAccount, String title, String content, String hashTag) {
+        this.userAccount = userAccount;
         this.title = title;
         this.content = content;
         this.hashTag = hashTag;
     }
 
-    public static Article of(String title, String content, String hashTag) {
-        return new Article(title, content, hashTag);
+    public static Article of(UserAccount userAccount, String title, String content, String hashTag) {
+        return new Article(userAccount, title, content, hashTag);
     }
 
     @Override
