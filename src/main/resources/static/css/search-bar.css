@@ -1,3 +1,4 @@
+/* 검색창 */
 .search-form {
     width: 80%;
     margin: 0 auto;
@@ -42,7 +43,7 @@
     margin-bottom: 1.875rem;
 }
 
-@media (min-width: 992px){
+@media (min-width: 992px) {
     .col-lg-2 {
         flex: 0 0 16.66667%;
         max-width: 16.66667%;
