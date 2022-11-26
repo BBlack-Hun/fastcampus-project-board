@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -15,11 +15,20 @@ import java.util.List;
 public class ArticleCommentService {
 
     private final ArticleCommentRepository articleCommentRepository;
+
     @Transactional(readOnly = true)
-    public List<ArticleCommentDto> searchArticleComment(Long articleId) {
-        return Arrays.asList();
+    public List<ArticleCommentDto> searchArticleComments(Long articleId) {
+        return Collections.emptyList();
     }
 
     public void saveArticleComment(ArticleCommentDto articleCommentDto) {
+    }
+
+    public void updateArticleComment(ArticleCommentDto articleCommentDto) {
+
+    }
+
+    public void deleteArticleComment(Long ArticleCommentId) {
+
     }
 }
