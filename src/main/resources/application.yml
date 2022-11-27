@@ -6,6 +6,23 @@ management:
       exposure:
         include: "*"
 
+logging:
+  level:
+    #    root: info
+    com:
+      example:
+        projectboard: debug
+    org:
+      springframework:
+        web:
+          servlet: debug
+      #        security: debug
+      hibernate:
+        type:
+          descriptor:
+            sql:
+              BasicBinder: trace
+
 server:
   servlet:
     encoding:
@@ -52,19 +69,4 @@ spring:
       base-path: /api/v1
       detection-strategy: annotated
 
-logging:
-  level:
-#    root: info
-    com:
-      example:
-        projectboard: debug
-    org:
-      springframework:
-        web:
-          servlet: debug
-#        security: debug
-      hibernate:
-        type:
-          descriptor:
-            sql:
-              BasicBinder: trace
+
