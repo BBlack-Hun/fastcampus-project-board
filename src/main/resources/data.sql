@@ -1,7 +1,7 @@
 -- 테스트 계정
 -- TODO: 테스트용이지만 비밀번호가 노출된 데이터 세팅. 개선하는 것이 좋을 지 고민해 보자.
 insert into user_account (userId, userPassword, nickname, email, memo, createdAt, createdBy, modifiedAt, modifiedBy) values
-('bhkim','asdf1234', 'bblack_hun', 'bhkim@mail.com', 'I am bh', now(), 'bhkim', now(), 'bhkim');
+('BHKIM','asdf1234', 'bblack_hun', 'bhkim@mail.com', 'I am bh', now(), 'bhkim', now(), 'bhkim');
 
 # -- 123개의 게시글
 insert into article (userAccount_id, title, content, hashTag, createdBy, modifiedBy, createdAt, modifiedAt) values (1, 'Proin interdum mauris non ligula pellentesque ultrices.', 'Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.', '#Aquamarine', 'Ambrosio', 'Jaymee', '2022-04-22 11:31:03', '2022-04-22 16:06:58');
