@@ -1,20 +1,33 @@
 package com.example.projectboard.api.AritlcleCommend.payload;
 
-import com.example.projectboard.api.Article.payload.ArticleDto;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import java.util.List;
+import java.time.LocalDateTime;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class ArticleCommentResponse {
-    private List<ArticleCommentDto> content;
-    private int pageNo;
-    private int pageSize;
-    private long totalElements;
-    private int totalPages;
-    private boolean last;
+
+    private final Long id;
+    private final String content;
+    private final LocalDateTime createdAt;
+    private final String email;
+    private final String nickname;
+
+    public static ArticleCommentResponse of(Long id, String content, LocalDateTime createdAt, String email, String nickname) {
+        return new ArticleCommentResponse(id, content, createdAt, email, nickname);
+    }
+
+    public static ArticleCommentResponse from(ArticleCommentDto articleCommentDto) {
+        String nickname = articleCommentDto.getUserAccountDto().getNickname();
+        if (nickname == null || nickname.isEmpty() || nickname.equals(" ")) {
+            nickname = articleCommentDto.getUserAccountDto().getUserId();
+        }
+
+        return new ArticleCommentResponse(
+                articleCommentDto.getId(),
+                articleCommentDto.getContent(),
+                articleCommentDto.getCreatedAt(),
+                articleCommentDto.getUserAccountDto().getEmail(),
+                nickname
+        );
+    }
 }

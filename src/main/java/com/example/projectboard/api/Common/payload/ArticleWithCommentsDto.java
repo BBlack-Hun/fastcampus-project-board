@@ -11,11 +11,11 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Data
-public class ArticleWithCommentDto {
+public class ArticleWithCommentsDto {
 
     private final Long id;
     private final UserAccountDto userAccountDto;
-    private final Set<ArticleCommentDto> articleCommentDtoSet;
+    private final Set<ArticleCommentDto> articleCommentDtos;
     private final String title;
     private final String content;
     private final String hashTag;
@@ -24,12 +24,12 @@ public class ArticleWithCommentDto {
     private final LocalDateTime modifiedAt;
     private final String modifiedBy;
 
-    public static ArticleWithCommentDto of (Long id, UserAccountDto userAccountDto, Set<ArticleCommentDto> articleCommentDtoSet, String title, String content, String hashTag, LocalDateTime createdAt, String createdBy, LocalDateTime modifiedAt, String modifiedBy) {
-        return new ArticleWithCommentDto(id, userAccountDto, articleCommentDtoSet, title, content, hashTag, createdAt, createdBy, modifiedAt, modifiedBy);
+    public static ArticleWithCommentsDto of (Long id, UserAccountDto userAccountDto, Set<ArticleCommentDto> articleCommentDtoSet, String title, String content, String hashTag, LocalDateTime createdAt, String createdBy, LocalDateTime modifiedAt, String modifiedBy) {
+        return new ArticleWithCommentsDto(id, userAccountDto, articleCommentDtoSet, title, content, hashTag, createdAt, createdBy, modifiedAt, modifiedBy);
     }
 
-    public static ArticleWithCommentDto from(Article entity) {
-        return new ArticleWithCommentDto(
+    public static ArticleWithCommentsDto from(Article entity) {
+        return new ArticleWithCommentsDto(
                 entity.getId(),
                 UserAccountDto.from(entity.getUserAccount()),
                 entity.getArticleComments().stream()
