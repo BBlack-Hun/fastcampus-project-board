@@ -107,7 +107,7 @@ class ArticleCommentServiceTest {
         then(articleCommentRepository).should().getReferenceById(articleCommentDto.getId());
     }
 
-    @DisplayName("없는 댓글 정보를 수정하려고 하면, 경고 로글르 찍고 아무 것도 안한다.")
+    @DisplayName("없는 댓글 정보를 수정하려고 하면, 경고 로그를 찍고 아무 것도 안한다.")
     @Test
     void givenNonexistentArticleComment_whenUpdatingArticleComment_thenLogWarningAndDoesNothing() {
         // Given
@@ -123,7 +123,7 @@ class ArticleCommentServiceTest {
 
     @DisplayName("댓글 ID를 입력하면, 댓글을 삭제한다.")
     @Test
-    void givenArticleCommentId_whenDeletingArticleComment_thenDeletesAricleComment() {
+    void givenArticleCommentId_whenDeletingArticleComment_thenDeletesArticleComment() {
         // Given
         Long articleCommentId = 1L;
 
