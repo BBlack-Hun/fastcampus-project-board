@@ -4,7 +4,7 @@ import com.example.projectboard.api.Article.entity.Article;
 import com.example.projectboard.api.Article.entity.type.SearchType;
 import com.example.projectboard.api.Article.payload.ArticleDto;
 import com.example.projectboard.api.Article.repository.ArticleRepository;
-import com.example.projectboard.api.Common.payload.ArticleWithCommentDto;
+import com.example.projectboard.api.Common.payload.ArticleWithCommentsDto;
 import com.example.projectboard.api.User.entity.UserAccount;
 import com.example.projectboard.api.User.payload.UserAccountDto;
 import org.junit.jupiter.api.DisplayName;
@@ -56,14 +56,14 @@ class ArticleServiceTest {
         SearchType searchType = SearchType.TITLE;
         String searchKeyword = "title";
         Pageable pageable = Pageable.ofSize(20);
-        given(articleRepository.findByTitle(searchKeyword, pageable)).willReturn(Page.empty());
+        given(articleRepository.findByTitleContaining(searchKeyword, pageable)).willReturn(Page.empty());
 
         // When
         Page<ArticleDto> articles = sut.searchArticles(searchType, searchKeyword, pageable); // 제목, 본문, id, 닉네임, 해시태그
 
         // Then
         assertThat(articles).isEmpty();
-        then(articleRepository).should().findByTitle(searchKeyword, pageable);
+        then(articleRepository).should().findByTitleContaining(searchKeyword, pageable);
     }
 
     @DisplayName("게시글을 조회하면, 게시글을 반환한다.")
@@ -76,13 +76,13 @@ class ArticleServiceTest {
         given(articleRepository.findById(articleId)).willReturn(Optional.of(article));
 
         // When
-        ArticleWithCommentDto articleWithCommentDto = sut.getArticle(articleId);
+        ArticleWithCommentsDto articleWithCommentsDto = sut.getArticle(articleId);
 
         // Then
-        assertThat(articleWithCommentDto)
+        assertThat(articleWithCommentsDto)
                 .hasFieldOrPropertyWithValue("title", article.getTitle())
                 .hasFieldOrPropertyWithValue("content", article.getContent())
-                .hasFieldOrPropertyWithValue("hashtag", article.getHashTag());
+                .hasFieldOrPropertyWithValue("hashTag", article.getHashTag());
         then(articleRepository).should().findById(articleId);
     }
 
