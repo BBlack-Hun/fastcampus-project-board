@@ -1,5 +1,6 @@
 package com.example.projectboard.api.Article.controller;
 
+import com.example.projectboard.api.Article.entity.type.SearchType;
 import com.example.projectboard.api.Article.service.ArticleService;
 import com.example.projectboard.api.Common.payload.ArticleWithCommentsDto;
 import com.example.projectboard.api.Common.service.PaginationService;
@@ -38,8 +39,10 @@ class ArticleControllerTest {
 
     private final MockMvc mockMvc;
 
-    @MockBean private ArticleService articleService;
-    @MockBean private PaginationService paginationService;
+    @MockBean
+    private ArticleService articleService;
+    @MockBean
+    private PaginationService paginationService;
 
     ArticleControllerTest(@Autowired MockMvc mockMvc) {
         this.mockMvc = mockMvc;
@@ -64,9 +67,36 @@ class ArticleControllerTest {
         then(paginationService).should().getPaginationBarNumbers(anyInt(), anyInt());
     }
 
+    @DisplayName("[view][GET] 게시글 리스트 (게시판) 페이지 - 검색어와 함께 호출")
+    @Test
+    public void givenSearchKeyword_whenSearchingArticleView_thenReturnsArticlesView() throws Exception {
+
+        // Given
+        SearchType searchType = SearchType.TITLE;
+        String searchKeyword = "title";
+        given(articleService.searchArticles(eq(searchType), eq(searchKeyword), any(Pageable.class))).willReturn(Page.empty());
+        given(paginationService.getPaginationBarNumbers(anyInt(), anyInt())).willReturn(Arrays.asList(0, 1, 2, 3, 4));
+
+        // When & Then
+        mockMvc.perform(
+                        get("/articles")
+                                .queryParam("searchType", searchType.name())
+                                .queryParam("searchKeyword", searchKeyword)
+                )
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
+                .andExpect(view().name("articles/index"))
+                .andExpect(model().attributeExists("articles"))
+                .andExpect(model().attributeExists("paginationBarNumbers"))
+                .andExpect(model().attributeExists("searchTypes"));
+        then(articleService).should().searchArticles(eq(searchType), eq(searchKeyword), any(Pageable.class));
+        then(paginationService).should().getPaginationBarNumbers(anyInt(), anyInt());
+    }
+
+
     @DisplayName("[view][GET] 게시글 리스트 (게시판) 페이지 - 페이징, 정렬 기능")
     @Test
-    void givenPagingAndSortingParams_whenWSearchingArticlesPage_thenReturnsArticlesPage() throws Exception {
+    void givenPagingAndSortingParams_whenWSearchingArticlesView_thenReturnsArticleView() throws Exception {
         // Given
         String sortName = "title";
         String direction = "desc";
@@ -79,10 +109,10 @@ class ArticleControllerTest {
 
         // When & Then
         mockMvc.perform(
-                            get("/articles")
-                                    .queryParam("page", String.valueOf(pageNumber))
-                                    .queryParam("size", String.valueOf(pageSize))
-                                    .queryParam("sort", sortName + "," + direction)
+                        get("/articles")
+                                .queryParam("page", String.valueOf(pageNumber))
+                                .queryParam("size", String.valueOf(pageSize))
+                                .queryParam("sort", sortName + "," + direction)
                 )
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
@@ -120,7 +150,6 @@ class ArticleControllerTest {
                 .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
                 .andExpect(model().attributeExists("article/search-hashtag"));
     }
-
 
 
     @DisplayName("[view][GET] 게시글 상세 페이지 - 정상 호출")
