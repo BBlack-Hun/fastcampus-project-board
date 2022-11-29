@@ -277,7 +277,6 @@ class ArticleServiceTest {
 
     private UserAccountDto createUserAccountDto() {
         return UserAccountDto.of(
-                1L,
                 "BHKIM",
                 "password",
                 "BHKIM@email.com",
