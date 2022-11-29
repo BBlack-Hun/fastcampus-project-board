@@ -51,7 +51,7 @@
                 <attr sel="tr[0]" th:each="article : ${articles}">
                     <attr sel="td.seq/a" th:text="${article.id}" th:href="@{'/articles/' + ${article.id}}"/>
                     <attr sel="td.title/a" th:text="${article.title}" th:href="@{'/articles/' + ${article.id}}"/>
-                    <attr sel="td.hashtag" th:text="${article.hashTag}"/>
+                    <attr sel="td.hashTag" th:text="${article.hashTag}"/>
                     <attr sel="td.user-id" th:text="${article.nickname}"/>
                     <attr sel="td.created-by/time" th:datetime="${article.creatdAt}"
                           th:text="${#temporals.format(article.createdAt, 'yyyy-MM-dd')}"/>
@@ -75,7 +75,7 @@
             <attr sel="li[2]/a"
                   th:text="'next'"
                   th:href="@{/articles(page=${articles.number + 1}, searchType=${param.searchType}, searchKeyword=${param.searchKeyword})}"
-                  th:class="'page-link' + (${articles.number} >= ${articles.totalPages} ? ' disabled' : '')"
+                  th:class="'page-link' + (${articles.number + 1} >= ${articles.totalPages} ? ' disabled' : '')"
             />
         </attr>
     </attr>
