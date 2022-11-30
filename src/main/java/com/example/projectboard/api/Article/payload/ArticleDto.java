@@ -1,6 +1,7 @@
 package com.example.projectboard.api.Article.payload;
 
 import com.example.projectboard.api.Article.entity.Article;
+import com.example.projectboard.api.User.entity.UserAccount;
 import com.example.projectboard.api.User.payload.UserAccountDto;
 import lombok.Data;
 
@@ -22,6 +23,10 @@ public class ArticleDto{
     private final LocalDateTime modifiedAt;
     private final String modifiedBy;
 
+    public static ArticleDto of(UserAccountDto userAccountDto, String title, String content, String hashTag) {
+        return new ArticleDto(null, userAccountDto, title, content, hashTag, null, null, null, null);
+    }
+
     public static ArticleDto of(Long id, UserAccountDto userAccountDto, String title, String content, String hashTag,
                                 LocalDateTime createdAt, String createdBy, LocalDateTime modifiedAt, String modifiedBy) {
         return new ArticleDto(id, userAccountDto, title, content, hashTag, createdAt, createdBy, modifiedAt, modifiedBy);
@@ -41,9 +46,9 @@ public class ArticleDto{
         );
     }
 
-    public Article toEntity() {
+    public Article toEntity(UserAccount userAccount) {
         return Article.of(
-                userAccountDto.toEntity(),
+                userAccount,
                 title,
                 content,
                 hashTag
