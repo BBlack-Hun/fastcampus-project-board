@@ -1,4 +1,4 @@
-package com.example.projectboard.api.Article.entity.type;
+package com.example.projectboard.api.Article.entity.constant;
 
 import lombok.Getter;
 
