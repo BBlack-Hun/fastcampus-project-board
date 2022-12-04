@@ -64,8 +64,8 @@ public class Article extends AuditingFields {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Article)) return false;
-        Article article = (Article) o;
-        return id != null && id.equals(article.id); // 새로만든 객체에 대해서는 다 다른 값으로 정의한다.
+        Article that = (Article) o;
+        return id != null && id.equals(that.getId()); // 새로만든 객체에 대해서는 다 다른 값으로 정의한다.
     }
 
     @Override
