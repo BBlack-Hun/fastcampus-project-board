@@ -7,6 +7,7 @@ import com.example.projectboard.api.Article.entity.Article;
 import com.example.projectboard.api.Article.repository.ArticleRepository;
 import com.example.projectboard.api.User.entity.UserAccount;
 import com.example.projectboard.api.User.payload.UserAccountDto;
+import com.example.projectboard.api.User.repository.UserAccountRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -31,6 +32,7 @@ class ArticleCommentServiceTest {
 
     @Mock private ArticleRepository articleRepository;
     @Mock private ArticleCommentRepository articleCommentRepository;
+    @Mock private UserAccountRepository userAccountRepository;
 
     @DisplayName("게시글 ID로 조회하면, 해당하는 댓글 리스트를 반환한다.")
     @Test
@@ -60,6 +62,7 @@ class ArticleCommentServiceTest {
         ArticleCommentDto articleCommentDto = createArticleCommentDto("댓글");
 
         given(articleRepository.getReferenceById(articleCommentDto.getArticleId())).willReturn(createArticle());
+        given(userAccountRepository.getReferenceById(articleCommentDto.getUserAccountDto().getUserId())).willReturn(createUserAccount());
         given(articleCommentRepository.save(any(ArticleComment.class))).willReturn(null);
 
         // When
@@ -67,6 +70,7 @@ class ArticleCommentServiceTest {
 
         // Then
         then(articleRepository).should().getReferenceById(articleCommentDto.getArticleId());
+        then(userAccountRepository).should().getReferenceById(articleCommentDto.getUserAccountDto().getUserId());
         then(articleCommentRepository).should().save(any(ArticleComment.class));
     }
 
@@ -75,7 +79,6 @@ class ArticleCommentServiceTest {
     void givenNonexistentArticle_whenSavingArticleComment_thenLogsSituationAndDoesNothing() {
         // Given
         ArticleCommentDto articleCommentDto = createArticleCommentDto("댓글");
-
         given(articleRepository.getReferenceById(articleCommentDto.getArticleId())).willThrow(EntityNotFoundException.class);
 
         // When
@@ -83,6 +86,7 @@ class ArticleCommentServiceTest {
 
         // Then
         then(articleRepository).should().getReferenceById(articleCommentDto.getArticleId());
+        then(userAccountRepository).shouldHaveNoInteractions();
         then(articleCommentRepository).shouldHaveNoInteractions();
     }
 
@@ -112,8 +116,8 @@ class ArticleCommentServiceTest {
     void givenNonexistentArticleComment_whenUpdatingArticleComment_thenLogWarningAndDoesNothing() {
         // Given
         ArticleCommentDto articleCommentDto = createArticleCommentDto("댓글");
-
         given(articleCommentRepository.getReferenceById(articleCommentDto.getId())).willThrow(EntityNotFoundException.class);
+
         // When
         sut.updateArticleComment(articleCommentDto);
 
@@ -126,7 +130,6 @@ class ArticleCommentServiceTest {
     void givenArticleCommentId_whenDeletingArticleComment_thenDeletesArticleComment() {
         // Given
         Long articleCommentId = 1L;
-
         willDoNothing().given(articleCommentRepository).deleteById(articleCommentId);
 
         // When
