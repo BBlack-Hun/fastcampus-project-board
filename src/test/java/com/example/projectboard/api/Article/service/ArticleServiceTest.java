@@ -137,7 +137,7 @@ class ArticleServiceTest {
         // Then
         assertThat(t)
                 .isInstanceOf(EntityNotFoundException.class)
-                .hasMessage("게시글이 없브니다. - articleId: " + articleId);
+                .hasMessage("게시글이 없습니다. - articleId: " + articleId);
         then(articleRepository).should().findById(articleId);
     }
 

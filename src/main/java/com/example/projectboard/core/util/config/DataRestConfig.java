@@ -1,4 +1,4 @@
-package com.example.projectboard.util.config;
+package com.example.projectboard.core.util.config;
 
 import com.example.projectboard.api.User.entity.UserAccount;
 import org.springframework.context.annotation.Bean;

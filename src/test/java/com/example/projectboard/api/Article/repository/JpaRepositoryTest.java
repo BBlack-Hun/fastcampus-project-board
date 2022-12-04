@@ -4,7 +4,7 @@ import com.example.projectboard.api.AritlcleCommend.repository.ArticleCommentRep
 import com.example.projectboard.api.Article.entity.Article;
 import com.example.projectboard.api.User.entity.UserAccount;
 import com.example.projectboard.api.User.repository.UserAccountRepository;
-import com.example.projectboard.util.config.JpaConfig;
+import com.example.projectboard.core.util.config.JpaConfig;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
