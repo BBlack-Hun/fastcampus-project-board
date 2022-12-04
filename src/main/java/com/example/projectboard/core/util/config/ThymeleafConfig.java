@@ -1,4 +1,4 @@
-package com.example.projectboard.util.config;
+package com.example.projectboard.core.util.config;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

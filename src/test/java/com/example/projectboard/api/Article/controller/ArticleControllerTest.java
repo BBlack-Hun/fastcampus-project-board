@@ -10,7 +10,7 @@ import com.example.projectboard.api.Common.payload.ArticleWithCommentsDto;
 import com.example.projectboard.api.Common.service.PaginationService;
 import com.example.projectboard.api.User.payload.UserAccountDto;
 import com.example.projectboard.util.FormDataEncoder;
-import com.example.projectboard.util.config.SecurityConfig;
+import com.example.projectboard.core.util.config.SecurityConfig;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
