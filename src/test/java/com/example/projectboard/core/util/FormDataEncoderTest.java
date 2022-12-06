@@ -1,6 +1,5 @@
-package com.example.projectboard.util;
+package com.example.projectboard.core.util;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
