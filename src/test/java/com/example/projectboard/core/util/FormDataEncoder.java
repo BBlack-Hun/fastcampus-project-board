@@ -1,4 +1,4 @@
-package com.example.projectboard.util;
+package com.example.projectboard.core.util;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;

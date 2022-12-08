@@ -1,4 +1,4 @@
-package com.example.projectboard.util;
+package com.example.projectboard.core.util;
 
 import lombok.Data;
 

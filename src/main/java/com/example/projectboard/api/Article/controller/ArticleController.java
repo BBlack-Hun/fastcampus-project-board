@@ -8,11 +8,14 @@ import com.example.projectboard.api.Article.service.ArticleService;
 import com.example.projectboard.api.Common.payload.ArticleWithCommentsResponse;
 import com.example.projectboard.api.Common.service.PaginationService;
 import com.example.projectboard.api.User.payload.UserAccountDto;
+import com.example.projectboard.core.security.BoardPrincipal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -38,7 +41,7 @@ public class ArticleController {
 
         map.addAttribute("articles", articles);
         map.addAttribute("paginationBarNumbers", barNumbers);
-        map.addAttribute("searchTypes",  SearchType.values());
+        map.addAttribute("searchTypes", SearchType.values());
 
         return "articles/index";
     }
@@ -56,7 +59,7 @@ public class ArticleController {
     @GetMapping("/search-hashtag")
     public String searchArticleHashTag(
             @RequestParam(required = false) String searchKeyword,
-            @PageableDefault(size = 10, sort="createdAt", direction = Sort.Direction.DESC) Pageable pageable,
+            @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable,
             ModelMap map
     ) {
         Page<ArticleResponse> articles = articleService.searchArticlesViaHashTag(searchKeyword, pageable).map(ArticleResponse::from);
@@ -66,7 +69,7 @@ public class ArticleController {
         map.addAttribute("articles", articles);
         map.addAttribute("hashTags", hashTags);
         map.addAttribute("paginationBarNumbers", barNumbers);
-        map.addAttribute("searchType",  SearchType.HASHTAG);
+        map.addAttribute("searchType", SearchType.HASHTAG);
 
         return "articles/search-hashTag";
     }
@@ -79,11 +82,11 @@ public class ArticleController {
     }
 
     @PostMapping("/form")
-    public String postNewArticle(ArticleRequest articleRequest) {
-        // TODO: 인증 정보를 넣어줘야 한다.
-        articleService.saveArticle(articleRequest.toDto(UserAccountDto.of(
-                "bhkim", "asdf1234", "bhkim@email.com", "bhKim", "memo"
-        )));
+    public String postNewArticle(
+            @AuthenticationPrincipal BoardPrincipal boardPrincipal,
+            ArticleRequest articleRequest
+    ) {
+        articleService.saveArticle(articleRequest.toDto(boardPrincipal.toDto()));
 
         return "redirect:/articles";
     }
@@ -99,20 +102,23 @@ public class ArticleController {
     }
 
     @PostMapping("/{articleId}/form")
-    public String UpdateArticle(@PathVariable Long articleId, ArticleRequest articleRequest) {
-        // TODO: 인증 정보를 넣어줘야 한다.
-        articleService.updateArticle(articleId, articleRequest.toDto(UserAccountDto.of(
-                "bhkim", "asdf1234", "bhkim@email.com", "bhKim", "memo"
-        )));
+    public String UpdateArticle(
+            @PathVariable Long articleId,
+            @AuthenticationPrincipal BoardPrincipal boardPrincipal,
+            ArticleRequest articleRequest
+    ) {
+        articleService.updateArticle(articleId, articleRequest.toDto(boardPrincipal.toDto()));
 
         return "redirect:/articles/" + articleId;
     }
 
 
     @PostMapping("/{articleId}/delete")
-    public String deleteArticle(@PathVariable Long articleId) {
-        // TODO: 인증 정보를 넣어줘야 한다.
-        articleService.deleteArticle(articleId);
+    public String deleteArticle(
+            @PathVariable Long articleId,
+            @AuthenticationPrincipal BoardPrincipal boardPrincipal
+    ) {
+        articleService.deleteArticle(articleId, boardPrincipal.getUsername());
 
         return "redirect:/articles";
     }
