@@ -76,8 +76,7 @@ spring:
 spring:
   config:
     activate:
-      on-profile:
-        - heroku
+      on-profile: heroku
   datasource:
     url: ${JAWSDB_URL}
     driver-class-name: com.mysql.cj.jdbc.Driver
