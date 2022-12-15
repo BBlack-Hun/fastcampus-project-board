@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.example</groupId>
     <artifactId>project-board</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>v1.1</version>
     <name>fastcampus-project-board</name>
     <description>fastcampus-project-board</description>
     <properties>
@@ -113,6 +113,7 @@
     </dependencies>
 
     <build>
+        <finalName>board-${project.version}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -141,6 +142,11 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.heroku.sdk</groupId>
+                <artifactId>heroku-maven-plugin</artifactId>
+                <version>3.0.6</version>
             </plugin>
         </plugins>
     </build>
