@@ -2,7 +2,6 @@ package com.example.projectboard.api.AritlcleCommend.controller;
 
 import com.example.projectboard.api.AritlcleCommend.payload.request.ArticleCommentRequest;
 import com.example.projectboard.api.AritlcleCommend.service.ArticleCommentService;
-import com.example.projectboard.api.User.payload.UserAccountDto;
 import com.example.projectboard.core.security.BoardPrincipal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
