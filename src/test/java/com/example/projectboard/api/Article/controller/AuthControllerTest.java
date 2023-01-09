@@ -20,13 +20,13 @@ public class AuthControllerTest {
 
     private MockMvc mockMvc;
 
-    public AuthControllerTest(@Autowired MockMvc mockMvc) {
+    AuthControllerTest(@Autowired MockMvc mockMvc) {
         this.mockMvc = mockMvc;
     }
 
     @DisplayName("[view][GET] 로그인 페이지 - 정상호출")
     @Test
-    public void givenNothing_whenTryingToLogIn_thenReturnsLoginView() throws Exception {
+    void givenNothing_whenTryingToLogIn_thenReturnsLoginView() throws Exception {
 
         mockMvc.perform(get("/login"))
                 .andExpect(status().isOk())

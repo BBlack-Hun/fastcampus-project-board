@@ -54,7 +54,7 @@ class ArticleControllerTest {
     @MockBean
     private PaginationService paginationService;
 
-    public ArticleControllerTest(
+    ArticleControllerTest(
             @Autowired MockMvc mockMvc,
             @Autowired FormDataEncoder formDataEncoder) {
         this.mockMvc = mockMvc;
