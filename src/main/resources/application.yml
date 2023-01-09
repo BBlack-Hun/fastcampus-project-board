@@ -78,8 +78,8 @@ spring:
     activate:
       on-profile: heroku
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
     url: ${JAWSDB_OLIVE_URL}
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: create
