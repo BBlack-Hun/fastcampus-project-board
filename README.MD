@@ -44,3 +44,9 @@ Spring Boot
 
 * Issues: 버그 리포트, 제안 사항
 * Discussions: 프로젝트와 관련한 논의와 정보
+
+
+## Reference
+
+* 유즈케이스 다이어그램: #4, https://viewer.diagrams.net/#Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fdjkeh%2Ffastcampus-project-board%2Fmain%2Fdocument%2Fuse-case.svg
+* API Endpoint 구글 시트: #1, https://docs.google.com/spreadsheets/d/1S2FW7_LlePGF95strSYFJEsEQKoyZ9nGHWM8wZgFmSU/edit?usp=sharing
