@@ -54,7 +54,7 @@ class ArticleControllerTest {
     @MockBean
     private PaginationService paginationService;
 
-    public ArticleControllerTest(
+    ArticleControllerTest(
             @Autowired MockMvc mockMvc,
             @Autowired FormDataEncoder formDataEncoder) {
         this.mockMvc = mockMvc;
@@ -63,7 +63,7 @@ class ArticleControllerTest {
 
     @DisplayName("[view][GET] 게시글 리스트 (게시판) 페이지 - 정상 호출")
     @Test
-    public void givenNothing_whenRequestingArticlesView_thenReturnsArticlesView() throws Exception {
+    void givenNothing_whenRequestingArticlesView_thenReturnsArticlesView() throws Exception {
 
         // Given
         given(articleService.searchArticles(eq(null), eq(null), any(Pageable.class))).willReturn(Page.empty());
@@ -82,7 +82,7 @@ class ArticleControllerTest {
 
     @DisplayName("[view][GET] 게시글 리스트 (게시판) 페이지 - 검색어와 함께 호출")
     @Test
-    public void givenSearchKeyword_whenSearchingArticleView_thenReturnsArticlesView() throws Exception {
+    void givenSearchKeyword_whenSearchingArticleView_thenReturnsArticlesView() throws Exception {
 
         // Given
         SearchType searchType = SearchType.TITLE;
@@ -139,7 +139,7 @@ class ArticleControllerTest {
     @Disabled("구현 중")
     @DisplayName("[view][GET] 게시글 검색 전용 페이지 - 정상 호출")
     @Test
-    public void givenNothing_whenRequestingArticleSearchView_thenReturnsArticleSearchView() throws Exception {
+    void givenNothing_whenRequestingArticleSearchView_thenReturnsArticleSearchView() throws Exception {
 
         // Given
 
@@ -152,7 +152,7 @@ class ArticleControllerTest {
 
     @DisplayName("[view][GET] 게시글 해시태그 검색 페이지 - 정상 호출")
     @Test
-    public void givenNothing_whenRequestingArticleSearchHashTagView_thenReturnsArticleSearchHashTagView() throws Exception {
+    void givenNothing_whenRequestingArticleSearchHashTagView_thenReturnsArticleSearchHashTagView() throws Exception {
 
         // Given
         List<String> hashTags = Arrays.asList("#java", "#spring", "#boot");
@@ -178,7 +178,7 @@ class ArticleControllerTest {
 
     @DisplayName("[view][GET] 게시글 해시태그 검색 페이지 - 정상 호출, 해시태그 입력")
     @Test
-    public void givenHashTag_whenRequestingArticleSearchHashTagView_thenReturnsArticleSearchHashTagView() throws Exception {
+    void givenHashTag_whenRequestingArticleSearchHashTagView_thenReturnsArticleSearchHashTagView() throws Exception {
 
         // Given
         String HashTag = "#java";
@@ -207,7 +207,7 @@ class ArticleControllerTest {
 
     @DisplayName("[view][GET] 게시글 페이지 - 인증 없을 땐 로그인 페이지로 이동")
     @Test
-    public void givenNothing_whenRequestingArticleView_thenRedirectsToLoginPage() throws Exception {
+    void givenNothing_whenRequestingArticleView_thenRedirectsToLoginPage() throws Exception {
 
         // Given
         long articleId = 1L;
@@ -222,7 +222,7 @@ class ArticleControllerTest {
     @WithMockUser
     @DisplayName("[view][GET] 게시글 페이지 - 정상 호출, 인증된 사용자")
     @Test
-    public void givenNothing_whenRequestingArticleView_thenReturnsArticleView() throws Exception {
+    void givenNothing_whenRequestingArticleView_thenReturnsArticleView() throws Exception {
 
         // Given
         Long articleId = 1L;
