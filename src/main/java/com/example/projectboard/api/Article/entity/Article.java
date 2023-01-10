@@ -65,12 +65,12 @@ public class Article extends AuditingFields {
         if (this == o) return true;
         if (!(o instanceof Article)) return false;
         Article that = (Article) o;
-        return id != null && id.equals(that.getId()); // 새로만든 객체에 대해서는 다 다른 값으로 정의한다.
+        return this.getId() != null && this.getId().equals(that.getId()); // 새로만든 객체에 대해서는 다 다른 값으로 정의한다.
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(this.getId());
     }
 
 }
