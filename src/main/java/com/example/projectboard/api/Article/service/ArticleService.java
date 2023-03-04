@@ -7,6 +7,8 @@ import com.example.projectboard.api.Article.repository.ArticleRepository;
 import com.example.projectboard.api.Common.payload.ArticleWithCommentsDto;
 import com.example.projectboard.api.User.entity.UserAccount;
 import com.example.projectboard.api.User.repository.UserAccountRepository;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -43,7 +45,9 @@ public class ArticleService {
             case NICKNAME:
                 return articleRepository.findByUserAccount_NicknameContaining(searchKeyword, pageable).map(ArticleDto::from);
             case HASHTAG:
-                return articleRepository.findByHashTag("#" + searchKeyword, pageable).map(ArticleDto::from);
+                return articleRepository.findByHashTagNames(
+                    Arrays.stream(searchKeyword.split(" ")).collect(Collectors.toList()),
+                    pageable).map(ArticleDto::from);
         }
 
         return null;
@@ -81,7 +85,6 @@ public class ArticleService {
                 if (article.getContent() != null) {
                     article.setContent(articleDto.getContent());
                 }
-                article.setHashTag(articleDto.getHashTag());
             }
         } catch (EntityNotFoundException e) {
             log.warn("게시글 업데이트 실패. 게시글을 수정하는데 필요한 정보를 찾을 수 없습니다. - {}", e.getLocalizedMessage());
@@ -101,7 +104,7 @@ public class ArticleService {
         if (hashTag == null || hashTag.isEmpty() || hashTag.equals(" ")) {
             return Page.empty(pageable);
         }
-        return articleRepository.findByHashTag(hashTag, pageable).map(ArticleDto::from);
+        return articleRepository.findByHashTagNames(null, pageable).map(ArticleDto::from);
     }
 
     public List<String> getHashTags() {

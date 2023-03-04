@@ -2,10 +2,10 @@ package com.example.projectboard.api.Article.controller;
 
 import com.example.projectboard.api.Article.entity.constant.FormStatus;
 import com.example.projectboard.api.Article.entity.constant.SearchType;
-import com.example.projectboard.api.Article.payload.ArticleResponse;
+import com.example.projectboard.api.Article.payload.response.ArticleResponse;
 import com.example.projectboard.api.Article.payload.request.ArticleRequest;
 import com.example.projectboard.api.Article.service.ArticleService;
-import com.example.projectboard.api.Common.payload.ArticleWithCommentsResponse;
+import com.example.projectboard.api.Common.payload.response.ArticleWithCommentsResponse;
 import com.example.projectboard.api.Common.service.PaginationService;
 import com.example.projectboard.core.security.BoardPrincipal;
 import lombok.RequiredArgsConstructor;
