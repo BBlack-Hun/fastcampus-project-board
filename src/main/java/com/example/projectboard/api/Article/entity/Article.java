@@ -4,9 +4,11 @@ package com.example.projectboard.api.Article.entity;
 import com.example.projectboard.api.AritlcleCommend.entity.ArticleComment;
 import com.example.projectboard.api.Common.entity.AuditingFields;
 import com.example.projectboard.api.User.entity.UserAccount;
+import com.example.projectboard.api.hashtag.entity.HashTag;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -18,7 +20,6 @@ import java.util.Set;
         name = "article",
         indexes = {
                 @Index(columnList = "title"),
-                @Index(columnList = "hashTag"),
                 @Index(columnList = "createdAt"),
                 @Index(columnList = "createdBy"),
         }
@@ -41,23 +42,40 @@ public class Article extends AuditingFields {
     @Setter
     @Column(nullable = false, length = 10000)
     private String content; // 내용
-    @Setter
-    private String hashTag; // 해시태그
+    @ToString.Exclude
+    @JoinTable(
+            name = "article_hashTag",
+            joinColumns = @JoinColumn(name = "articleId"),
+            inverseJoinColumns = @JoinColumn(name = "hashTagId")
+    )
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<HashTag> hashTags = new LinkedHashSet<HashTag>(); // 해시태그
 
     @ToString.Exclude
     @OrderBy("createdAt DESC")
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
     private final Set<ArticleComment> articleComments = new LinkedHashSet<>();
 
-    private  Article(UserAccount userAccount, String title, String content, String hashTag) {
+    private  Article(UserAccount userAccount, String title, String content) {
         this.userAccount = userAccount;
         this.title = title;
         this.content = content;
-        this.hashTag = hashTag;
     }
 
-    public static Article of(UserAccount userAccount, String title, String content, String hashTag) {
-        return new Article(userAccount, title, content, hashTag);
+    public static Article of(UserAccount userAccount, String title, String content) {
+        return new Article(userAccount, title, content);
+    }
+
+    public void addhashTag(HashTag hashTag) {
+        this.getHashTags().add(hashTag);
+    }
+
+    public void addHashTags(Collection<HashTag> hashTags) {
+        this.getHashTags().addAll(hashTags);
+    }
+
+    public void clearHashTags() {
+        this.getHashTags().clear();
     }
 
     @Override

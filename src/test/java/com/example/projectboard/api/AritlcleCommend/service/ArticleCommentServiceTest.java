@@ -8,6 +8,9 @@ import com.example.projectboard.api.Article.repository.ArticleRepository;
 import com.example.projectboard.api.User.entity.UserAccount;
 import com.example.projectboard.api.User.payload.UserAccountDto;
 import com.example.projectboard.api.User.repository.UserAccountRepository;
+import com.example.projectboard.api.hashtag.entity.HashTag;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -169,7 +172,7 @@ class ArticleCommentServiceTest {
 
     private ArticleComment createArticleComment(String content) {
         return ArticleComment.of(
-          Article.of(createUserAccount(), "title", "content", "hashTag"),
+          createArticle(),
           createUserAccount(),
           content
         );
@@ -177,20 +180,30 @@ class ArticleCommentServiceTest {
 
     private UserAccount createUserAccount() {
         return UserAccount.of(
-                "BHKIM",
-                "password",
-                "bhkim@eamil.com",
-                "BHKIM",
-                null
+            "BHKIM",
+            "password",
+            "bhkim@eamil.com",
+            "BHKIM",
+            null
         );
     }
 
     private Article createArticle() {
-        return Article.of(
-                createUserAccount(),
-                "title",
-                "content",
-                "#java"
+        Article article = Article.of(
+            createUserAccount(),
+            "title",
+            "content"
         );
+
+        article.addHashTags(Stream.of(createHashTag(article)).collect(Collectors.toSet()));
+
+        return article;
     }
+
+    private HashTag createHashTag(Article article) {
+        return HashTag.of("java");
+
+    }
+
+
 }

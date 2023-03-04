@@ -51,5 +51,5 @@ Spring Boot
 
 ## Reference
 
-* 유즈케이스 다이어그램: [#1](https://github.com/BBlack-Hun/fastcampus-project-board/issues/1), https://viewer.diagrams.net/#Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fdjkeh%2Ffastcampus-project-board%2Fmain%2Fdocument%2Fuse-case.svg
-* API Endpoint 구글 시트: [#5](https://github.com/BBlack-Hun/fastcampus-project-board/issues/5), https://docs.google.com/spreadsheets/d/1S2FW7_LlePGF95strSYFJEsEQKoyZ9nGHWM8wZgFmSU/edit?usp=sharing
+* 유즈케이스 다이어그램: [#1](https://github.com/BBlack-Hun/fastcampus-project-board/issues/1), https://viewer.diagrams.net/?tags=%7B%7D&highlight=0000ff&edit=_blank&layers=1&nav=1&title=use-case.drawio.svg#Uhttps%3A%2F%2Fraw.githubusercontent.com%2FBBlack-Hun%2Ffastcampus-project-board%2Ffeature%2F%252362-refactoring%2Fdocument%2Fuse-case.drawio.svg
+* API Endpoint 구글 시트: [#5](https://github.com/BBlack-Hun/fastcampus-project-board/issues/5), https://docs.google.com/spreadsheets/d/1ZuNAgWA20wtS8qPsieIJOCA-Osdn8rsR4rxHGL6Q9lQ/edit?usp=sharing
